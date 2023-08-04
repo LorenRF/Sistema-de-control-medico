@@ -6,7 +6,7 @@ namespace Sistema_de_control_medico.Interfaces
     {
         List<Alta> getDischarge();
         Alta getDischarge(int id);
-        string setDischarge(DateTime fechaHoraSalida, DateTime fechaHoraIngreso, int habitacion, int paciente);
+        string setDischarge(DateTime fechaHoraSalida, int ingreso);
         string updateDischarge(int id, DateTime fechaHoraSalida, DateTime fechaHoraIngreso, int habitacion, int paciente, float pago);
         string DeleteDischarge(int id);
     }

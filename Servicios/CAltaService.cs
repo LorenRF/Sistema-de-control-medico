@@ -60,16 +60,14 @@ namespace Sistema_de_control_medico.Servicios
             return null;
         }
 
-        public string setDischarge(DateTime fechaHoraSalida, DateTime fechaHoraIngreso, int habitacion, int paciente)
+        public string setDischarge(DateTime fechaHoraSalida, int ingreso)
         {
             CCostoInternamiento costo = new CCostoInternamiento();
 
             Alta alta = new Alta
             {
                 FechaDeSalida = fechaHoraSalida,
-                FechaDeIngreso = fechaHoraIngreso,
-                IdHabitacion = habitacion,
-                IdPaciente = paciente,
+                IdIngreso = ingreso,
                 Pago = costo.CalcularCosto(habitacion, costo.diasTranscurridos(fechaHoraIngreso, fechaHoraSalida))
 
             };

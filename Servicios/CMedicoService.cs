@@ -3,7 +3,7 @@ using Sistema_de_control_medico.Models;
 
 namespace Sistema_de_control_medico.Servicios
 {
-    public class CMedicoService: IMedico
+    public class CMedicoService : IMedico
     {
         private readonly DBControl_medicoContext context;
 
@@ -31,11 +31,11 @@ namespace Sistema_de_control_medico.Servicios
             return null;
         }
         public string setMedic(string nombre, string apellido, int Exequatur, string especialidad)
-    {
-        Medico doc = new Medico
         {
+            Medico doc = new Medico
+            {
                 Nombre = nombre,
-                Apellido = apellido, 
+                Apellido = apellido,
                 Exequatur = Exequatur,
                 Especialidad = especialidad
 
@@ -57,32 +57,32 @@ namespace Sistema_de_control_medico.Servicios
 
         public string updateMedic(int id, string nombre, string apellido, int Exequatur, string especialidad)
         {
-        Medico doc = context.Medicos.FirstOrDefault(u => u.Id == id);
+            Medico doc = context.Medicos.FirstOrDefault(u => u.Id == id);
             string? result;
             try
             {
                 if (doc != null)
                 {
-                // Actualizar los campos del medico según los parámetros recibidos
+                    // Actualizar los campos del medico según los parámetros recibidos
                     if (Exequatur != null)
                     {
                         doc.Exequatur = Exequatur;
                     }
                     if (nombre != null)
                     {
-                    doc.Nombre = nombre;
+                        doc.Nombre = nombre;
                     }
 
                     if (!string.IsNullOrEmpty(apellido))
                     {
-                    doc.Apellido = apellido;
+                        doc.Apellido = apellido;
                     }
                     if (!string.IsNullOrEmpty(especialidad))
                     {
                         doc.Especialidad = especialidad;
                     }
 
-                context.Medicos.Update(doc);
+                    context.Medicos.Update(doc);
                     context.SaveChanges();
                     result = "medico actualizado correctamente";
                 }
@@ -101,7 +101,7 @@ namespace Sistema_de_control_medico.Servicios
 
         public string DeleteMedic(int id)
         {
-        Medico doc = context.Medicos.FirstOrDefault(u => u.Id == id);
+            Medico doc = context.Medicos.FirstOrDefault(u => u.Id == id);
 
             string? result;
             try
@@ -127,5 +127,5 @@ namespace Sistema_de_control_medico.Servicios
 
         }
     }
-    
+
 }

@@ -1,10 +1,9 @@
-﻿using Sistema_de_control_medico.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Sistema_de_control_medico.Models
 {
-    public partial class Cita : IModelo
+    public partial class Cita
     {
         public int Id { get; set; }
         public DateTime? Fecha { get; set; }

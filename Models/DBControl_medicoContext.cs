@@ -18,7 +18,7 @@ namespace Sistema_de_control_medico.Models
 
         public virtual DbSet<Alta> Altas { get; set; } = null!;
         public virtual DbSet<Cita> Citas { get; set; } = null!;
-        public virtual DbSet<Habitacion> Habitaciones { get; set; } = null!;
+        public virtual DbSet<Habitacione> Habitaciones { get; set; } = null!;
         public virtual DbSet<Ingreso> Ingresos { get; set; } = null!;
         public virtual DbSet<Medico> Medicos { get; set; } = null!;
         public virtual DbSet<Paciente> Pacientes { get; set; } = null!;
@@ -37,27 +37,16 @@ namespace Sistema_de_control_medico.Models
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.FechaDeIngreso)
-                    .HasColumnType("datetime")
-                    .HasColumnName("Fecha_de_ingreso");
-
                 entity.Property(e => e.FechaDeSalida)
                     .HasColumnType("datetime")
                     .HasColumnName("Fecha_de_salida");
 
-                entity.Property(e => e.IdHabitacion).HasColumnName("ID_Habitacion");
+                entity.Property(e => e.IdIngreso).HasColumnName("ID_ingreso");
 
-                entity.Property(e => e.IdPaciente).HasColumnName("ID_Paciente");
-
-                entity.HasOne(d => d.IdHabitacionNavigation)
+                entity.HasOne(d => d.IdIngresoNavigation)
                     .WithMany(p => p.Alta)
-                    .HasForeignKey(d => d.IdHabitacion)
-                    .HasConstraintName("FK__Altas__Pago__4F7CD00D");
-
-                entity.HasOne(d => d.IdPacienteNavigation)
-                    .WithMany(p => p.Alta)
-                    .HasForeignKey(d => d.IdPaciente)
-                    .HasConstraintName("FK__Altas__ID_Pacien__5070F446");
+                    .HasForeignKey(d => d.IdIngreso)
+                    .HasConstraintName("FK__Altas__Pago__5EBF139D");
             });
 
             modelBuilder.Entity<Cita>(entity =>
@@ -81,7 +70,7 @@ namespace Sistema_de_control_medico.Models
                     .HasConstraintName("FK__Citas__ID_Pacien__403A8C7D");
             });
 
-            modelBuilder.Entity<Habitacion>(entity =>
+            modelBuilder.Entity<Habitacione>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
 

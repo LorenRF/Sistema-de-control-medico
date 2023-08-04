@@ -31,7 +31,7 @@ namespace Sistema_de_control_medico.Controllers
         [HttpPost("agregar-cita")]
         public ActionResult addAppoiment(DateTime fechaHora, int medico, int paciente)
         {
-            return Ok(cita.setAppointment( fechaHora,  medico,  paciente));
+            return Ok(cita.setAppointment(fechaHora, medico, paciente));
         }
         [HttpPut("editar-cita")]
         public ActionResult editAppointment(int id, DateTime fechaHora, int medico, int paciente)

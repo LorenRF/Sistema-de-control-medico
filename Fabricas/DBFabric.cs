@@ -9,7 +9,7 @@ namespace Sistema_de_control_medico.Fabricas
 
         public IModelo getModelo(string tipoModelo)
         {
-            if(tipoModelo == "alta")
+            if (tipoModelo == "alta")
             {
                 modelo = new Alta();
             }

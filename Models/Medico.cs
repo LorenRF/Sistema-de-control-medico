@@ -1,10 +1,9 @@
-﻿using Sistema_de_control_medico.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Sistema_de_control_medico.Models
 {
-    public partial class Medico : IModelo
+    public partial class Medico
     {
         public Medico()
         {

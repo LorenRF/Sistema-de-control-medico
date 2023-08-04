@@ -9,7 +9,7 @@ namespace Sistema_de_control_medico.Controllers
     {
         IPaciente paciente { set; get; }
 
-        public PacienteController (IPaciente paciente)
+        public PacienteController(IPaciente paciente)
         {
             this.paciente = paciente;
         }
@@ -21,8 +21,8 @@ namespace Sistema_de_control_medico.Controllers
         {
             var pacientes = paciente.getPatients();
             return Ok(pacientes);
-        }        
-        
+        }
+
         [HttpGet("obtener-paciente")]
         public ActionResult getPatient(int id)
         {
@@ -33,12 +33,12 @@ namespace Sistema_de_control_medico.Controllers
         [HttpPost("agregar-paciente")]
         public ActionResult setPatient(string cedula, string nombre, string apellido, string asegurado)
         {
-            return Ok(paciente.setPatient( cedula, nombre, apellido, asegurado));
+            return Ok(paciente.setPatient(cedula, nombre, apellido, asegurado));
         }
         [HttpPut("editar-paciente")]
         public ActionResult updatePatient(int id, string cedula, string nombre, string apellido, string asegurado)
         {
-            return Ok(paciente.updatePatient( id, cedula, nombre, apellido, asegurado));
+            return Ok(paciente.updatePatient(id, cedula, nombre, apellido, asegurado));
         }
 
         [HttpDelete("eliminar-paciente")]

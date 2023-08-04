@@ -3,7 +3,7 @@ using Sistema_de_control_medico.Models;
 
 namespace Sistema_de_control_medico.Servicios
 {
-    public class CIngresoService: IIngreso
+    public class CIngresoService : IIngreso
     {
 
         private readonly DBControl_medicoContext context;
@@ -93,7 +93,7 @@ namespace Sistema_de_control_medico.Servicios
             {
                 if (ingreso != null)
                 {
-                    // Actualizar los campos del ingreso según los parámetros recibidos
+                    Actualizar los campos del ingreso según los parámetros recibidos
                     if (fechaHoraIngreso != null)
                     {
                         ingreso.FechaDeIngreso = fechaHoraIngreso;

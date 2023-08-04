@@ -7,20 +7,20 @@ namespace Sistema_de_control_medico.Otros
     {
         public float total { get; set; }
         IHabitacion habitacion { get; set; }
-        public float CalcularCosto (int idHabitacion, int dias)
+        public float CalcularCosto(int idHabitacion, int dias)
         {
-           Habitacion room = habitacion.getRoom(idHabitacion);
+            Habitacion room = habitacion.getRoom(idHabitacion);
 
-           float precioHabitacion = (float)room.Precio;
+            float precioHabitacion = (float)room.Precio;
 
-           total = dias * precioHabitacion;
+            total = dias * precioHabitacion;
             return total;
         }
 
-        public int diasTranscurridos (DateTime ingreso, DateTime salida)
+        public int diasTranscurridos(DateTime ingreso, DateTime salida)
         {
-            
-           int dias = salida.Day - ingreso.Day;
+
+            int dias = salida.Day - ingreso.Day;
 
             return dias;
         }

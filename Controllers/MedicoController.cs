@@ -10,8 +10,8 @@ namespace Sistema_de_control_medico.Controllers
         public MedicoController(IMedico DBMedico)
         {
             this.DBMedico = DBMedico;
-        }  
-        
+        }
+
         [HttpGet("obtener-medicos")]
         public ActionResult getMedicList()
         {
@@ -27,11 +27,11 @@ namespace Sistema_de_control_medico.Controllers
 
         }
 
-      
+
         [HttpPost("agregar-medico")]
         public ActionResult addMedic(string nombre, string apellido, int Exequatur, string especialidad)
         {
-            return Ok(DBMedico.setMedic( nombre, apellido, Exequatur, especialidad));
+            return Ok(DBMedico.setMedic(nombre, apellido, Exequatur, especialidad));
         }
         [HttpPut("editar-medico")]
         public ActionResult editMedic(int id, string nombre, string apellido, int Exequatur, string especialidad)

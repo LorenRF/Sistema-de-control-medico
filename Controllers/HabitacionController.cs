@@ -29,6 +29,6 @@ namespace Sistema_de_control_medico.Controllers
 
         }
 
-        
+
     }
 }

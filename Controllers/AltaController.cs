@@ -29,9 +29,9 @@ namespace Sistema_de_control_medico.Controllers
 
 
         [HttpPost("agregar-alta")]
-        public ActionResult addDischarge(DateTime fechaHoraSalida, DateTime fechaHoraIngreso, int habitacion, int paciente)
+        public ActionResult addDischarge(DateTime fechaHoraSalida, int ingreso)
         {
-            return Ok(alta.setDischarge( fechaHoraSalida, fechaHoraIngreso, habitacion, paciente));
+            return Ok(alta.setDischarge(fechaHoraSalida, ingreso));
         }
         [HttpPut("editar-alta")]
         public ActionResult editDischarge(int id, DateTime fechaHoraSalida, DateTime fechaHoraIngreso, int habitacion, int paciente, float pago)
