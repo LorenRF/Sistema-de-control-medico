@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Sistema_de_control_medico.DTO;
 using Sistema_de_control_medico.Interfaces;
 
 namespace Sistema_de_control_medico.Controllers
@@ -7,20 +8,13 @@ namespace Sistema_de_control_medico.Controllers
     {
         IIngreso ingreso { set; get; }
 
-        public IngresosController(IIngreso ingreso)
+        public IngresosController(IIngreso iingreso)
         {
-            this.ingreso = ingreso;
-        }
-
-        [HttpGet("obtener-ingresos")]
-        public ActionResult getInternmentList()
-        {
-            var doc = ingreso.getInternments();
-            return Ok(doc);
+            ingreso = iingreso;
         }
 
         [HttpGet("obtener-ingreso")]
-        public ActionResult getInternment(int id)
+        public ActionResult getInternment(int? id)
         {
             var doc = ingreso.getInternment(id);
             return Ok(doc);
@@ -29,20 +23,20 @@ namespace Sistema_de_control_medico.Controllers
 
 
         [HttpPost("agregar-ingreso")]
-        public ActionResult addInternment(DateTime fechaHoraIngreso, int habitacion, int paciente)
+        public ActionResult addInternment(IngresosManagerDTO model)
         {
-            return Ok(ingreso.setInternment(fechaHoraIngreso, habitacion, paciente));
+            return Ok(ingreso.setInternment(model));
         }
         [HttpPut("editar-ingreso")]
-        public ActionResult editInternment(int id, DateTime fechaHoraIngreso, int habitacion, int paciente)
+        public ActionResult editInternment(IngresosManagerDTO model)
         {
-            return Ok(ingreso.updateInternment(id, fechaHoraIngreso, habitacion, paciente));
+            return Ok(ingreso.updateInternment(model));
         }
 
         [HttpDelete("eliminar-ingreso")]
-        public ActionResult deleteInternment(int id)
+        public ActionResult deleteInternment(IngresosManagerDTO model)
         {
-            return Ok(ingreso.DeleteInternment(id));
+            return Ok(ingreso.DeleteInternment(model));
         }
     }
 }

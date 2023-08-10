@@ -1,137 +1,89 @@
-﻿using Sistema_de_control_medico.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Sistema_de_control_medico.DTO;
+using Sistema_de_control_medico.Interfaces;
 using Sistema_de_control_medico.Models;
-using Sistema_de_control_medico.Otros;
 
 namespace Sistema_de_control_medico.Servicios
 {
     public class CAltaService : IAltas
     {
-        private readonly DBControl_medicoContext context;
+        private readonly Context.DBControl_medicoContext context;
 
-        public CAltaService(DBControl_medicoContext context)
+        public CAltaService(Context.DBControl_medicoContext context)
         {
             this.context = context;
         }
-        public string DeleteDischarge(int id)
+        public SpResult DeleteDischarge(AltaManagerDTO model)
         {
 
-            Alta alta = context.Altas.FirstOrDefault(u => u.Id == id);
+            var result = new List<SpResult>();
 
-            string? result;
             try
             {
-                if (alta != null)
-                {
-                    context.Altas.Remove(alta);
-                    context.SaveChanges();
-                    result = "alta eliminada correctamente";
-                }
-                else
-                {
-                    result = "alta Nulo";
-                }
-
+                result = context.SpResult.FromSqlInterpolated($"AltaManager {model.ID_Alta}, {model.Fecha_de_salida}, {model.ID_Ingreso}, {model.Pago}, {3}").ToList();
             }
             catch (Exception ex)
             {
-                result = "Hubo un error al eliminar la alta" + ex;
-            }
-            return result;
-        }
 
-        public List<Alta> getDischarge()
-        {
-            return context.Altas.ToList();
-
-        }
-
-        public Alta getDischarge(int id)
-        {
-            List<Alta> altas = getDischarge();
-
-            foreach (var alta in altas)
-            {
-                if (alta.Id == id)
-                {
-                    return alta;
-                }
+                Console.WriteLine("Error al eliminar la alta medica " + ex);
             }
 
-            return null;
+            return result.FirstOrDefault();
         }
 
-        public string setDischarge(DateTime fechaHoraSalida, int ingreso)
+        public List<GetAltas> getDischarge(int? id)
         {
-            CCostoInternamiento costo = new CCostoInternamiento();
+            var ingresos = new List<GetAltas>();
 
-            Alta alta = new Alta
-            {
-                FechaDeSalida = fechaHoraSalida,
-                IdIngreso = ingreso,
-                Pago = costo.CalcularCosto(habitacion, costo.diasTranscurridos(fechaHoraIngreso, fechaHoraSalida))
-
-            };
-
-            string? result;
             try
             {
-                context.Altas.Add(alta);
-                context.SaveChanges();
-                result = "alta agregado correctamente";
+                ingresos = context.getAltas.FromSqlInterpolated($"GetAltas {id}").ToList();
             }
             catch (Exception ex)
             {
-                result = "Hubo un error al insertar el alta" + ex;
+
+                Console.WriteLine("error al obtener las altas " + ex);
             }
-            return result;
+
+            return ingresos;
+
         }
 
-        public string updateDischarge(int id, DateTime fechaHoraSalida, DateTime fechaHoraIngreso, int habitacion, int paciente, float pago)
+
+        public SpResult setDischarge(AltaManagerDTO model)
         {
 
-            Alta alta = context.Altas.FirstOrDefault(u => u.Id == id);
-            string? result;
+            var result = new List<SpResult>();
+
             try
             {
-                if (alta != null)
-                {
-                    // Actualizar los campos del medico según los parámetros recibidos
-                    if (fechaHoraSalida != null)
-                    {
-                        alta.FechaDeSalida = fechaHoraSalida;
-                    }
-                    if (fechaHoraIngreso != null)
-                    {
-                        alta.FechaDeIngreso = fechaHoraIngreso;
-                    }
-                    if (habitacion != null)
-                    {
-                        alta.IdHabitacion = habitacion;
-                    }
-                    if (paciente != null)
-                    {
-                        alta.IdPaciente = paciente;
-                    }
-                    if (pago != null)
-                    {
-                        alta.Pago = pago;
-                    }
-
-                    context.Altas.Update(alta);
-                    context.SaveChanges();
-                    result = "medico actualizado correctamente";
-                }
-                else
-                {
-                    result = "medico nulo";
-
-                }
+                result = context.SpResult.FromSqlInterpolated($"AltaManager {model.ID_Alta}, {model.Fecha_de_salida}, {model.ID_Ingreso}, {model.Pago}, {1}").ToList();
             }
             catch (Exception ex)
             {
-                result = "Hubo un error al insertar el medico" + ex;
+
+                Console.WriteLine("Error al insertar la alta medica " + ex);
             }
-            return result;
+
+            return result.FirstOrDefault();
+        }
+
+        public SpResult updateDischarge(AltaManagerDTO model)
+        {
+
+            var result = new List<SpResult>();
+
+            try
+            {
+                result = context.SpResult.FromSqlInterpolated($"AltaManager {model.ID_Alta}, {model.Fecha_de_salida}, {model.ID_Ingreso}, {model.Pago}, {2}").ToList();
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine("Error al actualizar alta medica" + ex);
+            }
+
+            return result.FirstOrDefault();
         }
     }
 }

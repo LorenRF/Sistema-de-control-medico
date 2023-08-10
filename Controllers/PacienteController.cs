@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Sistema_de_control_medico.DTO;
 using Sistema_de_control_medico.Interfaces;
+using Sistema_de_control_medico.Models;
 
 namespace Sistema_de_control_medico.Controllers
 {
@@ -15,36 +17,28 @@ namespace Sistema_de_control_medico.Controllers
         }
 
 
-
         [HttpGet("obtener-pacientes")]
-        public ActionResult getPatients()
-        {
-            var pacientes = paciente.getPatients();
-            return Ok(pacientes);
-        }
-
-        [HttpGet("obtener-paciente")]
-        public ActionResult getPatient(int id)
+        public ActionResult getPatient(int? id)
         {
             var elpaciente = paciente.getPatient(id);
-            return Ok(paciente);
+            return Ok(elpaciente);
         }
 
         [HttpPost("agregar-paciente")]
-        public ActionResult setPatient(string cedula, string nombre, string apellido, string asegurado)
+        public ActionResult setPatient(PacientesManagerDTO model)
         {
-            return Ok(paciente.setPatient(cedula, nombre, apellido, asegurado));
+            return Ok(paciente.setPatient(model));
         }
         [HttpPut("editar-paciente")]
-        public ActionResult updatePatient(int id, string cedula, string nombre, string apellido, string asegurado)
+        public ActionResult updatePatient(PacientesManagerDTO model)
         {
-            return Ok(paciente.updatePatient(id, cedula, nombre, apellido, asegurado));
+            return Ok(paciente.updatePatient(model));
         }
 
         [HttpDelete("eliminar-paciente")]
-        public ActionResult deleteUser(int id)
+        public ActionResult deleteUser(PacientesManagerDTO model)
         {
-            return Ok(paciente.DeletePatient(id));
+            return Ok(paciente.DeletePatient(model));
         }
     }
 }

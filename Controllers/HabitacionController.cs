@@ -14,19 +14,11 @@ namespace Sistema_de_control_medico.Controllers
             this.habitacion = habitacion;
         }
 
-        [HttpGet("obtener-habitacions")]
-        public ActionResult getRooms()
-        {
-            var doc = habitacion.getRooms();
-            return Ok(doc);
-        }
-
         [HttpGet("obtener-habitacion")]
-        public ActionResult getRoom(int id)
+        public ActionResult getRooms(int? id)
         {
             var doc = habitacion.getRoom(id);
             return Ok(doc);
-
         }
 
 

@@ -1,4 +1,6 @@
-﻿using Sistema_de_control_medico.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Sistema_de_control_medico.DTO;
+using Sistema_de_control_medico.Interfaces;
 using Sistema_de_control_medico.Models;
 
 namespace Sistema_de_control_medico.Servicios
@@ -6,124 +8,81 @@ namespace Sistema_de_control_medico.Servicios
     public class CIngresoService : IIngreso
     {
 
-        private readonly DBControl_medicoContext context;
+        private readonly Context.DBControl_medicoContext context;
 
-        public CIngresoService(DBControl_medicoContext context)
+        public CIngresoService(Context.DBControl_medicoContext context)
         {
             this.context = context;
         }
 
-        public string DeleteInternment(int id)
+        public SpResult DeleteInternment(IngresosManagerDTO model)
         {
-            Ingreso ing = context.Ingresos.FirstOrDefault(u => u.Id == id);
+            var result = new List<SpResult>();
 
-            string? result;
             try
             {
-                if (ing != null)
-                {
-                    context.Ingresos.Remove(ing);
-                    context.SaveChanges();
-                    result = "ingreso eliminado correctamente";
-                }
-                else
-                {
-                    result = "ingreso Nulo";
-                }
-
+                result = context.SpResult.FromSqlInterpolated($"IngresosManager {model.ID_Ingreso}, {model.Fecha_de_ingreso}, {model.ID_Habitacion}, {model.ID_Paciente}, {3}").ToList();
             }
             catch (Exception ex)
             {
-                result = "Hubo un error al eliminar el ingreso" + ex;
-            }
-            return result;
 
-        }
-
-        public Ingreso getInternment(int id)
-        {
-            List<Ingreso> ingresos = getInternments();
-
-            foreach (var ing in ingresos)
-            {
-                if (ing.Id == id)
-                {
-                    return ing;
-                }
+                Console.WriteLine("Error al eliminar el internamiento " + ex);
             }
 
-            return null;
+            return result.FirstOrDefault();
         }
 
-        public List<Ingreso> getInternments()
+
+        public List<GetIngresos> getInternment(int? id)
         {
-            return context.Ingresos.ToList();
-        }
+            var ingresos = new List<GetIngresos>();
 
-        public string setInternment(DateTime fechaHoraIngreso, int habitacion, int paciente)
-        {
-            Ingreso ingreso = new Ingreso
-            {
-                FechaDeIngreso = fechaHoraIngreso,
-                IdHabitacion = habitacion,
-                IdPaciente = paciente
-
-            };
-
-            string? result;
             try
             {
-                context.Ingresos.Add(ingreso);
-                context.SaveChanges();
-                result = "ingreso agregado correctamente";
+                ingresos = context.getIngresos.FromSqlInterpolated($"GetIngresos {id}").ToList();
             }
             catch (Exception ex)
             {
-                result = "Hubo un error al insertar el ingreso" + ex;
+
+                Console.WriteLine("error al obtener los ingresos " + ex);
             }
-            return result;
+
+            return ingresos;
         }
 
-        public string updateInternment(int id, DateTime fechaHoraIngreso, int habitacion, int paciente)
+        public SpResult setInternment(IngresosManagerDTO model)
         {
+            var result = new List<SpResult>();
 
-            Ingreso ingreso = context.Ingresos.FirstOrDefault(u => u.Id == id);
-            string? result;
             try
             {
-                if (ingreso != null)
-                {
-                    Actualizar los campos del ingreso según los parámetros recibidos
-                    if (fechaHoraIngreso != null)
-                    {
-                        ingreso.FechaDeIngreso = fechaHoraIngreso;
-                    }
-                    if (habitacion != null)
-                    {
-                        ingreso.IdHabitacion = habitacion;
-                    }
-                    if (paciente != null)
-                    {
-                        ingreso.IdPaciente = paciente;
-                    }
-
-
-
-                    context.Ingresos.Update(ingreso);
-                    context.SaveChanges();
-                    result = "medico actualizado correctamente";
-                }
-                else
-                {
-                    result = "ingreso nulo";
-
-                }
+                result = context.SpResult.FromSqlInterpolated($"IngresosManager {model.ID_Ingreso}, {model.Fecha_de_ingreso}, {model.ID_Habitacion}, {model.ID_Paciente}, {1}").ToList();
             }
             catch (Exception ex)
             {
-                result = "Hubo un error al insertar el ingreso" + ex;
+
+                Console.WriteLine("Error al insertar cita " + ex);
             }
-            return result;
+
+            return result.FirstOrDefault();
+        }
+
+        public SpResult updateInternment(IngresosManagerDTO model)
+        {
+
+            var result = new List<SpResult>();
+
+            try
+            {
+                result = context.SpResult.FromSqlInterpolated($"IngresosManager {model.ID_Ingreso}, {model.Fecha_de_ingreso}, {model.ID_Habitacion}, {model.ID_Paciente}, {2}").ToList();
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine("Error al insertar cita " + ex);
+            }
+
+            return result.FirstOrDefault();
         }
     }
 }

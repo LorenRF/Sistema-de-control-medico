@@ -4,8 +4,7 @@ namespace Sistema_de_control_medico.Interfaces
 {
     public interface IHabitacion : IService
     {
-        List<Habitacion> getRooms();
-        Habitacion getRoom(int id);
+        List<GetHabitacion> getRoom(int? id);
 
     }
 }

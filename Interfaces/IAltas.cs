@@ -1,13 +1,13 @@
-﻿using Sistema_de_control_medico.Models;
+﻿using Sistema_de_control_medico.DTO;
+using Sistema_de_control_medico.Models;
 
 namespace Sistema_de_control_medico.Interfaces
 {
     public interface IAltas : IService
     {
-        List<Alta> getDischarge();
-        Alta getDischarge(int id);
-        string setDischarge(DateTime fechaHoraSalida, int ingreso);
-        string updateDischarge(int id, DateTime fechaHoraSalida, DateTime fechaHoraIngreso, int habitacion, int paciente, float pago);
-        string DeleteDischarge(int id);
+        List<GetAltas> getDischarge(int? id);
+        SpResult setDischarge(AltaManagerDTO model);
+        SpResult updateDischarge(AltaManagerDTO model);
+        SpResult DeleteDischarge(AltaManagerDTO model);
     }
 }

@@ -1,127 +1,90 @@
-﻿using Sistema_de_control_medico.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Sistema_de_control_medico.DTO;
+using Sistema_de_control_medico.Interfaces;
 using Sistema_de_control_medico.Models;
 
 namespace Sistema_de_control_medico.Servicios
 {
     public class CPacienteService : IPaciente
     {
-        private readonly DBControl_medicoContext context;
+        private readonly Context.DBControl_medicoContext context;
 
-        public CPacienteService(DBControl_medicoContext context)
+        public CPacienteService(Context.DBControl_medicoContext context)
         {
             this.context = context;
         }
-        public string DeletePatient(int id)
+        public SpResult DeletePatient(PacientesManagerDTO model)
         {
-            Paciente paciente = context.Pacientes.FirstOrDefault(u => u.Id == id);
 
-            string? result;
+            var result = new List<SpResult>();
 
             try
             {
-                if (paciente != null)
-                {
-                    context.Pacientes.Remove(paciente);
-                    context.SaveChanges();
-                    result = "Paciente eliminado correctamente";
-                }
-                else
-                {
-                    result = "Paciente Nulo";
-                }
+                result = context.SpResult.FromSqlInterpolated($"PacienteManager {model.ID_Paciente}, {model.Cedula}, {model.Nombre_Paciente}, {model.Apellido_Paciente}, {model.Asegurado}, {3}").ToList();
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine("Error al eliminar al paciente " + ex);
+            }
+
+            return result.FirstOrDefault();
+
+        }
+
+        public List<GetPacientes> getPatient(int? id)
+        {
+            var pacientes = new List<GetPacientes>();
+
+            try
+            {
+                pacientes = context.Pacientes.FromSqlInterpolated($"GetPacientes {id}").ToList();
 
             }
             catch (Exception ex)
             {
-                result = "Hubo un error al eliminar el Paciente" + ex;
-            }
-            return result;
 
-        }
-
-        public Paciente getPatient(int id)
-        {
-            List<Paciente> pacientes = getPatients();
-
-            foreach (var paciente in pacientes)
-            {
-                if (paciente.Id == id)
-                {
-                    return paciente;
-                }
+                Console.WriteLine("Hubo un error al obtener el paciente" + ex);
             }
 
-            return null;
+            return pacientes;
+
         }
 
-        public List<Paciente> getPatients()
+        public SpResult setPatient(PacientesManagerDTO model)
         {
-            return context.Pacientes.ToList();
-        }
 
-        public string setPatient(string cedula, string nombre, string apellido, string asegurado)
-        {
-            Paciente pat = new Paciente
-            {
-                Cedula = cedula,
-                Nombre = nombre,
-                Apellido = apellido,
-                Asegurado = asegurado
+            var result = new List<SpResult>();
 
-            };
-
-            string? result;
             try
             {
-                context.Pacientes.Add(pat);
-                context.SaveChanges();
-                result = "Paciente agregado correctamente";
+                result = context.SpResult.FromSqlInterpolated($"PacienteManager {model.ID_Paciente}, {model.Cedula}, {model.Nombre_Paciente}, {model.Apellido_Paciente}, {model.Asegurado}, {1}").ToList();
             }
             catch (Exception ex)
             {
-                result = "Hubo un error al insertar el Paciente" + ex;
+
+                Console.WriteLine("Error al insertar al paciente " + ex);
             }
-            return result;
+
+            return result.FirstOrDefault();
         }
 
-        public string updatePatient(int id, string cedula, string nombre, string apellido, string asegurado)
+        public SpResult updatePatient(PacientesManagerDTO model)
         {
-            Paciente pat = context.Pacientes.FirstOrDefault(u => u.Id == id);
-            string? result;
+
+            var result = new List<SpResult>();
+
             try
             {
-                if (pat != null)
-                {
-                    // Actualizar los campos del medico según los parámetros recibidos
-                    if (nombre != null)
-                    {
-                        pat.Nombre = nombre;
-                    }
-                    if (apellido != null)
-                    {
-                        pat.Apellido = apellido;
-                    }
-
-                    if (!string.IsNullOrEmpty(asegurado))
-                    {
-                        pat.Asegurado = asegurado;
-                    }
-
-                    context.Pacientes.Update(pat);
-                    context.SaveChanges();
-                    result = "medico actualizado correctamente";
-                }
-                else
-                {
-                    result = "medico nulo";
-
-                }
+                result = context.SpResult.FromSqlInterpolated($"PacienteManager {model.ID_Paciente}, {model.Cedula}, {model.Nombre_Paciente}, {model.Apellido_Paciente}, {model.Asegurado}, {2}").ToList();
             }
             catch (Exception ex)
             {
-                result = "Hubo un error al insertar el medico" + ex;
+
+                Console.WriteLine("Error al actualizar alta medica" + ex);
             }
-            return result;
+
+            return result.FirstOrDefault();
         }
     }
 }

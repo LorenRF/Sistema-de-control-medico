@@ -1,35 +1,35 @@
-﻿using Sistema_de_control_medico.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Sistema_de_control_medico.Interfaces;
 using Sistema_de_control_medico.Models;
 
 namespace Sistema_de_control_medico.Servicios
 {
-    public class CHabitacionService : IHabitacion, IService
+    public class CHabitacionService : IHabitacion
     {
-        private readonly DBControl_medicoContext context;
+        private readonly Context.DBControl_medicoContext context;
 
-        public CHabitacionService(DBControl_medicoContext context)
+        public CHabitacionService(Context.DBControl_medicoContext context)
         {
             this.context = context;
         }
 
-        public Habitacion getRoom(int id)
+        public List<GetHabitacion> getRoom(int? id)
         {
-            List<Habitacion> rooms = getRooms();
+            var habitaciones = new List<GetHabitacion>();
 
-            foreach (var room in rooms)
+            try
             {
-                if (room.Id == id)
-                {
-                    return room;
-                }
+                habitaciones = context.Habitaciones.FromSqlInterpolated($"GetHabitacion {id}").ToList();
+       
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine("Hubo un error al obtener la habitacion" + ex);
             }
 
-            return null;
-        }
+            return habitaciones;
 
-        public List<Habitacion> getRooms()
-        {
-            return context.Habitaciones.ToList();
         }
 
 

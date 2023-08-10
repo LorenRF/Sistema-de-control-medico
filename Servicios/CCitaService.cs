@@ -1,126 +1,87 @@
-﻿using Sistema_de_control_medico.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Sistema_de_control_medico.DTO;
+using Sistema_de_control_medico.Interfaces;
 using Sistema_de_control_medico.Models;
 
 namespace Sistema_de_control_medico.Servicios
 {
     public class CCitaService : ICita
     {
-        private readonly DBControl_medicoContext context;
+        private readonly Context.DBControl_medicoContext context;
 
-        public CCitaService(DBControl_medicoContext context)
+        public CCitaService(Context.DBControl_medicoContext context)
         {
             this.context = context;
         }
-        public string DeleteAppointment(int id)
+        public SpResult DeleteAppointment(CitaManagerDTO model)
         {
-            Cita cita = context.Citas.FirstOrDefault(u => u.Id == id);
+            var result = new List<SpResult>();
 
-            string? result;
             try
             {
-                if (cita != null)
-                {
-                    context.Citas.Remove(cita);
-                    context.SaveChanges();
-                    result = "cita eliminado correctamente";
-                }
-                else
-                {
-                    result = "cita Nulo";
-                }
-
+                result = context.SpResult.FromSqlInterpolated($"CitasManager {model.ID_Cita}, {model.Fecha_Cita}, {model.ID_Medico}, {model.ID_Paciente}, {3}").ToList();
             }
             catch (Exception ex)
             {
-                result = "Hubo un error al eliminar la cita" + ex;
-            }
-            return result;
 
-        }
-
-        public Cita getAppointment(int id)
-        {
-            List<Cita> citas = getAppointments();
-
-            foreach (var cita in citas)
-            {
-                if (cita.Id == id)
-                {
-                    return cita;
-                }
+                Console.WriteLine("Error al eliminar la cita " + ex);
             }
 
-            return null;
+            return result.FirstOrDefault();
         }
 
-        public List<Cita> getAppointments()
+
+        public List<GetCitas> getAppointment(int? id)
         {
-            return context.Citas.ToList();
-        }
+            var citas = new List<GetCitas>();
 
-        public string setAppointment(DateTime fechaHora, int medico, int paciente)
-        {
-            Cita cita = new Cita
-            {
-                Fecha = fechaHora,
-                IdMedico = medico,
-                IdPaciente = paciente,
-
-            };
-
-            string? result;
             try
             {
-                context.Citas.Add(cita);
-                context.SaveChanges();
-                result = "cita agregado correctamente";
+                citas = context.getCitas.FromSqlInterpolated($"GetCitas {id}").ToList();
             }
             catch (Exception ex)
             {
-                result = "Hubo un error al insertar el cita" + ex;
+
+               Console.WriteLine( "Hubo un error al obtener la cita" + ex);
             }
-            return result;
+
+            return citas;
+
         }
 
-        public string updateAppointment(int id, DateTime fechaHora, int medico, int paciente)
+        public SpResult setAppointment(CitaManagerDTO model)
         {
+            var result = new List<SpResult>();
 
-            Cita cita = context.Citas.FirstOrDefault(u => u.Id == id);
-            string? result;
             try
             {
-                if (cita != null)
-                {
-                    // Actualizar los campos del cita según los parámetros recibidos
-                    if (fechaHora != null)
-                    {
-                        cita.Fecha = fechaHora;
-                    }
-                    if (medico != null)
-                    {
-                        cita.IdMedico = medico;
-                    }
-                    if (paciente != null)
-                    {
-                        cita.IdPaciente = paciente;
-                    }
-
-
-                    context.Citas.Update(cita);
-                    context.SaveChanges();
-                    result = "cita actualizado correctamente";
-                }
-                else
-                {
-                    result = "cita nulo";
-
-                }
+                result = context.SpResult.FromSqlInterpolated($"CitasManager {model.ID_Cita}, {model.Fecha_Cita}, {model.ID_Medico}, {model.ID_Paciente}, {1}").ToList();
             }
             catch (Exception ex)
             {
-                result = "Hubo un error al insertar el cita" + ex;
+
+                Console.WriteLine("Error al insertar cita " + ex);
             }
-            return result;
+
+            return result.FirstOrDefault();
+        }
+
+        public SpResult updateAppointment(CitaManagerDTO model)
+        {
+
+            var result = new List<SpResult>();
+
+            try
+            {
+                result = context.SpResult.FromSqlInterpolated($"CitasManager {model.ID_Cita}, {model.Fecha_Cita}, {model.ID_Medico}, {model.ID_Paciente}, {2}").ToList();
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine("Error al insertar cita " + ex);
+            }
+
+            return result.FirstOrDefault();
         }
     }
 }

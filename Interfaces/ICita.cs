@@ -1,13 +1,13 @@
-﻿using Sistema_de_control_medico.Models;
+﻿using Sistema_de_control_medico.DTO;
+using Sistema_de_control_medico.Models;
 
 namespace Sistema_de_control_medico.Interfaces
 {
     public interface ICita : IService
     {
-        List<Cita> getAppointments();
-        Cita getAppointment(int id);
-        string setAppointment(DateTime fechaHora, int medico, int paciente);
-        string updateAppointment(int id, DateTime fechaHora, int medico, int paciente);
-        string DeleteAppointment(int id);
+        List<GetCitas> getAppointment(int? id);
+        SpResult setAppointment(CitaManagerDTO model);
+        SpResult updateAppointment(CitaManagerDTO model);
+        SpResult DeleteAppointment(CitaManagerDTO model);
     }
 }
