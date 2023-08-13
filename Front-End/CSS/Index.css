@@ -13,7 +13,7 @@
     left: 0;
     height: 100%;
     width: 260px;
-    background: #efeff3;
+    background: #f3f3f3;
     z-index: 100;
     transition: all 0.5s ease;
   }
@@ -219,16 +219,40 @@
     left: 260px;
     width: calc(100% - 260px);
     transition: all 0.5s ease;
-    padding: 12px;
   }
   .sidebar.close ~ .home-section{
     left: 78px;
     width: calc(100% - 78px);
   }
+  .home-head{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: #f3f3f3;
+    height: 8%;
+    box-shadow: 05px 05px 20px #8f8f8f; /* Desplazamiento horizontal, desplazamiento vertical, radio de desenfoque, color */
+  }
+  .home-section .home-head .bx-menu,
+  .home-section .home-head .text{
+    color: #0e0d0d;
+    font-size: 35px;
+  }
+  .home-section .home-head .bx-menu{
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  .home-section .home-head .text{
+    font-size: 26px;
+    font-weight: 600;
+  }
+
+  /*content*/
+
   .home-content{
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+
   }
   .home-section .home-content .bx-menu,
   .home-section .home-content .text{
@@ -243,6 +267,8 @@
     font-size: 26px;
     font-weight: 600;
   }
+
+  /*ya*/
   
   @media screen and (max-width: 400px){
     .sidebar{
@@ -281,16 +307,16 @@
 
 .input {
     border-style: none;
-    height: 30px;
-    width: 30px;
+    height: 35px;
+    width: 35px;
     padding: 10px;
     outline: none;
     border-radius: 50%;
     transition: .5s ease-in-out;
-    background-color: #45f1fa;
+    background-color: #26e2ec;
     box-shadow: 0px 0px 3px #f3f3f3;
     padding-right: 25px;
-    color: #fff;
+    color: #ffffff;
 }
 
 .input::placeholder,
@@ -325,7 +351,33 @@
     box-shadow: none;
     width: 650px;
     border-radius: 0px;
-    background-color: transparent;
-    border-bottom: 3px solid #45f1fa;
+    background-color: #0e0d0d;
+    border-radius: 50px;
+    border-bottom: 3px solid #26e2ec;
     transition: all 1500ms cubic-bezier(0, 0.110, 0.35, 2); /* Ajusta la duración de la transición aquí */
+}
+
+
+/* Estilos CSS para la lista de resultados */
+.search-results {
+  position: absolute;
+  width: 100%;
+  max-height: 150px;
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  z-index: 1;
+  margin-top: 45%;
+}
+
+/* Estilo para cada elemento de la lista de resultados */
+.search-results li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+/* Estilo para resaltar el elemento cuando se le pasa el cursor */
+.search-results li:hover {
+  background-color: #f1f1f1;
 }

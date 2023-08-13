@@ -5,8 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'
     rel='stylesheet'>
-    <script src="JS/Index.js" defer></script>
-    <link rel="stylesheet" href="CSS/Index.css">
+    <script src="../JS/UpdateAppoiment.js" defer></script>
+    <script src="../JS/Index.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
+    <link rel="stylesheet" href="../CSS/Index.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../CSS/AgregarCita.css">
+
+
+
     <title>Sistema de Control medico</title>
 </head>
 <body>
@@ -27,64 +37,64 @@
           </li>
           <li>
             <div class="iocn-link">
-              <a href="HTML/Cistas.html">
+              <a href="Cistas.html">
                 <i class='bx bx-book-heart' ></i>
                 <span class="link_name">Citas medicas</span>
               </a>
               <i class='bx bxs-chevron-down arrow' ></i>
             </div>
             <ul class="sub-menu">
-              <li><a class="link_name" href="HTML/Cistas.html">Citas medicas</a></li>
+              <li><a class="link_name" href="Cistas.html">Citas medicas</a></li>
               <li><a href="#">Reservar cita</a></li>
-              <li><a href="HTML/Cistas.html">Ver citas</a></li>
+              <li><a href="Cistas.html">Ver citas</a></li>
             </ul>
           </li>
           <li>
             <div class="iocn-link">
-              <a href="HTML/Ingresos.html">
+              <a href="Ingresos.html">
                 <i class='bx bx-book-add'></i>
                 <span class="link_name">Ingresos</span>
               </a>
               <i class='bx bxs-chevron-down arrow' ></i>
             </div>
             <ul class="sub-menu">
-              <li><a class="link_name" href="HTML/Ingresos.html">Ingresos</a></li>
+              <li><a class="link_name" href="Ingresos.html">Ingresos</a></li>
               <li><a href="#">Registrar ingreso</a></li>
-              <li><a href="HTML/Ingresos.html">Ver ingresos</a></li>
+              <li><a href="Ingresos.html">Ver ingresos</a></li>
             </ul>
           </li>
           
           <li>
             <div class="iocn-link">
-              <a href="HTML/Altas.html">
+              <a href="Altas.html">
                 <i class='bx bx-home-heart'></i>
                 <span class="link_name">Altas</span>
               </a>
               <i class='bx bxs-chevron-down arrow' ></i>
             </div>
             <ul class="sub-menu">
-              <li><a class="link_name" href="HTML/Altas.html">Altas</a></li>
+              <li><a class="link_name" href="ltas.html">Altas</a></li>
               <li><a href="#">Registrar Alta</a></li>
-              <li><a href="HTML/Altas.html">Ver Altas</a></li>
+              <li><a href="Altas.html">Ver Altas</a></li>
             </ul>
           </li>
           <li>
-            <a href="HTML/Pacientes.html">
+            <a href="Pacientes.html">
                 <i class='bx bx-user'></i>
               <span class="link_name">Pacientes</span>
             </a>
             <ul class="sub-menu">
-              <li><a class="link_name" href="HTML/Pacientes.html">Pacientes</a></li>
+              <li><a class="link_name" href="Pacientes.html">Pacientes</a></li>
               
             </ul>
           </li>
           <li>
-            <a href="HTML/Medicos.html">
+            <a href="Medicos.html">
                 <i class='bx bx-health'></i>
               <span class="link_name">Medicos</span>
             </a>
             <ul class="sub-menu blank">
-              <li><a class="link_name" href="HTML/Medicos.html">Medicos</a></li>
+              <li><a class="link_name" href="Medicos.html">Medicos</a></li>
             </ul>
           </li>
           <li>
@@ -97,12 +107,12 @@
             </ul>
           </li>
           <li>
-            <a href="HTML/Configuracion.html">
+            <a href="Configuracion.html">
               <i class='bx bx-cog' ></i>
               <span class="link_name">Configuración</span>
             </a>
             <ul class="sub-menu blank">
-              <li><a class="link_name" href="HTML/Configuracion.html">Configuración</a></li>
+              <li><a class="link_name" href="Configuracion.html">Configuración</a></li>
             </ul>
           </li>
           <li>
@@ -133,7 +143,44 @@
             <ul class="search-results" id="searchResults"></ul>
           </div>
         </div>
+        <div class = "home-content">
+            <div class="Content">
+                
+                <form class="form">
+                    <label> ID De la cita
+                    <input required="" placeholder="" type="number" class="input ID" id="CitaID" disabled>
+                    
+                </label>
+                    <label for="datepicker">fecha y horario: </label>
+                    <div class="flex">
+                    <label>
+                        <input required="" type="date" id="start" name="trip-start" value="2023-08-22" min="2020-01-01" max="2024-12-31"/>
+                        <input required="" type="time" id="appt" name="appt" min="09:00" max="18:00" required />
+                        
+                        </label>
+                        </div>
+                        <label>Datos generales: </label>
+                    <div class="flex">
+                        <label>
+                            <input required="" placeholder="" type="number" class="input" id="pacienteId">
+                            <span>ID del paciente</span>
+                        </label>
+                
+                        <label>
+                            <input required="" placeholder="" type="number" class="input" id="medicoId">
+                            <span>ID del medico</span>
+                        </label>
+                    </div>  
+                    
+                    <button class="fancy" id="Actualizar" type="button">
+                      <span class="top-key"></span>
+                      <span class="text">Guardar Cambios</span>
+                      <span class="bottom-key-1"></span>
+                      <span class="bottom-key-2"></span>
+                    </button>
+                </form>
+                </div>
+            </div>
       </section>
-      
 </body>
 </html>
