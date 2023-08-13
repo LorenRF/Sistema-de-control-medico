@@ -23,7 +23,6 @@ $(document).ready(function () {
     });
   
     // Fetch data from the API and populate the DataTable
-      // Fetch data from the API and populate the DataTable
       fetch('https://localhost:7286/obtener-cita')
   .then(response => response.json())
   .then(apiResponse => {
