@@ -136,7 +136,7 @@ if (selectedRows.length == 0) {
     // Obtén los valores de las celdas de la fila seleccionada
     var ingresoID = selectedRows.find('td:eq(0)').text();
    // Crea la URL con los parámetros
-    const editUrl = `RegistrarAlta.html?ingresoID=${ingresoID}`;
+    const editUrl = `ActualizarIngreso.html?ingresoID=${ingresoID}`;
   
     // Redirige a la página del formulario de edición
     window.location.href = editUrl;

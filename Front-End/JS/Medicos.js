@@ -23,24 +23,17 @@ $(document).ready(function () {
   });
 
   // Fetch data from the API and populate the DataTable
-    fetch('https://localhost:7286/obtener-ingreso')
+    fetch('https://localhost:7286/obtener-medicos')
 .then(response => response.json())
 .then(apiResponse => {
   apiResponse.forEach(ingreso => {
     if (ingreso.estatus === "Activo") {
-      const fechaIngreso = new Date(ingreso.ingresado);
-      const fechaFormato = `${fechaIngreso.getFullYear()}/${(fechaIngreso.getMonth() + 1).toString().padStart(2, '0')}/${fechaIngreso.getDate().toString().padStart(2, '0')}`;
-      const horaFormato = `${fechaIngreso.getHours().toString().padStart(2, '0')}:${fechaIngreso.getMinutes().toString().padStart(2, '0')}`;
 
       table.row.add([
-        ingreso.iD_Ingreso,
-        fechaFormato,
-        horaFormato,
-        ingreso.numero,
-        ingreso.iD_Habitacion,
-        ingreso.tipo,
-        ingreso.iD_Paciente,
-        ingreso.paciente
+        ingreso.iD_Medico,
+        ingreso.medico,
+        ingreso.especialidad,
+        ingreso.exequatur
       ]).draw();
     }
   });
@@ -108,16 +101,10 @@ if (selectedRows.length == 0) {
   var ingresoID = selectedRows.find('td:eq(0)').text();
   var fechaIngreso = selectedRows.find('td:eq(1)').text();
   var horaIngreso = selectedRows.find('td:eq(2)').text();
-  var idmedico = selectedRows.find('td:eq(4)').text();
-  var idpaciente = selectedRows.find('td:eq(6)').text();
-
-  
-    // Formatea la fecha en el formato "yyyy-MM-dd"
-    var formattedDate = new Date(fechaIngreso).toISOString().split('T')[0];
-
+  var idmedico = selectedRows.find('td:eq(3)').text();
 
   // Crea la URL con los parámetros
-  const editUrl = `ActualizarIngreso.html?ingresoID=${ingresoID}&fechaIngreso=${formattedDate}&horaIngreso=${horaIngreso}&idmedico=${idmedico}&idpaciente=${idpaciente}`;
+  const editUrl = `ActualizarMedico.html?ingresoID=${ingresoID}&fechaIngreso=${formattedDate}&horaIngreso=${horaIngreso}&idmedico=${idmedico}&idpaciente=${idpaciente}`;
 
   // Redirige a la página del formulario de edición
   window.location.href = editUrl;
@@ -136,7 +123,7 @@ if (selectedRows.length == 0) {
     // Obtén los valores de las celdas de la fila seleccionada
     var ingresoID = selectedRows.find('td:eq(0)').text();
    // Crea la URL con los parámetros
-    const editUrl = `RegistrarAlta.html?ingresoID=${ingresoID}`;
+    const editUrl = `ActualizarIngreso.html?ingresoID=${ingresoID}`;
   
     // Redirige a la página del formulario de edición
     window.location.href = editUrl;

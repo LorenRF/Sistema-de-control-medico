@@ -32,7 +32,7 @@ $("#Actualizar").on("click", function() {
     success: function(response) {
       if (response && Object.keys(response).length > 0) {
         alert("Ingreso actualizado correctamente");
-        window.location.href = "Facturacion.html";
+        window.location.href = "Ingresos.html";
       } else {
         alert("Error al actualizar la ingreso: Respuesta vacía o no válida");
       }

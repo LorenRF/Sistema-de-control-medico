@@ -5,13 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'
     rel='stylesheet'>
+    <script src="../JS/RegistrarAlta.js" defer></script>
     <script src="../JS/Index.js" defer></script>
-    <script src="../JS/Ingresos.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
     <link rel="stylesheet" href="../CSS/Index.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../CSS/Ingresos.css">
+    <link rel="stylesheet" href="../CSS/AgregarCita.css">
+
+
+
+
     <title>Sistema de Control medico</title>
 </head>
 <body>
@@ -22,12 +28,12 @@
         </div>
         <ul class="nav-links">
           <li>
-            <a href="../Index.html">
+            <a href="#">
               <i class='bx bx-grid-alt' ></i>
               <span class="link_name">Panel</span>
             </a>
             <ul class="sub-menu blank">
-              <li><a class="link_name" href="../Index.html">Panel</a></li>
+              <li><a class="link_name" href="#">Panel</a></li>
             </ul>
           </li>
           <li>
@@ -40,7 +46,7 @@
             </div>
             <ul class="sub-menu">
               <li><a class="link_name" href="Cistas.html">Citas medicas</a></li>
-              <li><a href="AgregarCita.html">Reservar cita</a></li>
+              <li><a href="#">Reservar cita</a></li>
               <li><a href="Cistas.html">Ver citas</a></li>
             </ul>
           </li>
@@ -54,7 +60,7 @@
             </div>
             <ul class="sub-menu">
               <li><a class="link_name" href="Ingresos.html">Ingresos</a></li>
-              <li><a href="RegistrarIngreso.html">Registrar ingreso</a></li>
+              <li><a href="#">Registrar ingreso</a></li>
               <li><a href="Ingresos.html">Ver ingresos</a></li>
             </ul>
           </li>
@@ -68,8 +74,8 @@
               <i class='bx bxs-chevron-down arrow' ></i>
             </div>
             <ul class="sub-menu">
-              <li><a class="link_name" href="Altas.html">Altas</a></li>
-              <li><a href="RegistrarAlta.html">Registrar Alta</a></li>
+              <li><a class="link_name" href="ltas.html">Altas</a></li>
+              <li><a href="#">Registrar Alta</a></li>
               <li><a href="Altas.html">Ver Altas</a></li>
             </ul>
           </li>
@@ -93,26 +99,27 @@
             </ul>
           </li>
           <li>
-            <a href="Habitaciones.html">
+            <a href="#">
               <i class='bx bxs-edit-location'></i>
               <span class="link_name">Sedes</span>
             </a>
             <ul class="sub-menu blank">
-              <li><a class="link_name" href="Habitaciones.html">Habitaciones</a></li>
+              <li><a class="link_name" href="#">Sedes</a></li>
             </ul>
           </li>
           <li>
-            <a href="#">
+            <a href="Configuracion.html">
               <i class='bx bx-cog' ></i>
               <span class="link_name">Configuración</span>
             </a>
             <ul class="sub-menu blank">
-              <li><a class="link_name" href="#">Configuración</a></li>
+              <li><a class="link_name" href="Configuracion.html">Configuración</a></li>
             </ul>
           </li>
           <li>
         <div class="profile-details">
           <div class="profile-content">
+            <img src="../image/profile.jpg" alt="profileImg">
           </div>
           <div class="name-job">
             <div class="profile_name">Administrador</div>
@@ -124,7 +131,6 @@
         </ul>
       </div>
       <section class="home-section">
-        
         <div class="home-head">
           <i class='bx bx-menu' ></i>
           <div class="input-wrapper">
@@ -137,74 +143,41 @@
             <input placeholder="Buscar..." class="input" name="text" type="text" id="searchInput">
             <ul class="search-results" id="searchResults"></ul>
           </div>
-          
         </div>
         <div class = "home-content">
-        <div class="Content">
-          <div id="Vista-container">
-            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-              <thead>
-                <tr>
-                  <th>ID Ingreso</th>
-                  <th>Fecha</th>
-                  <th>Hora</th>
-                  <th>Habitacion</th>
-                  <th>codigo</th>
-                  <th>Tipo de habitacion</th>
-                  <th>ID Paciente</th>
-                  <th>Paciente</th>
-                </tr>
-              </thead>
-              <tfoot>
-                <tr>
-                    <th>ID Ingreso</th>
-                    <th>Fecha</th>
-                    <th>Hora</th>
-                    <th>Habitacion</th>
-                    <th>codigo</th>
-                    <th>Tipo de habitacion</th>
-                    <th>ID Paciente</th>
-                    <th>Paciente</th>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-          <div id="Buttons">
-            <div class="box">
-                <button class="button" id="btnAdd">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20" fill="none" class="svg-icon">
-                        <g stroke-width="1.5" stroke-linecap="round" stroke="#de8a2a">
-                            <circle r="7.5" cy="10" cx="10"></circle>
-                            <path d="m9.99998 7.5v5"></path>
-                            <path d="m7.5 9.99998h5"></path>
-                        </g>
-                    </svg>
-                    <span class="lable">Add</span>
-                </button>
+            <div class="Content">
+                
+                <form class="form">
+                    
+                  <label for="datepicker">Seleccione la fecha y horario: </label>
+                  <div class="flex">
+                      <label>
+                          <input type="date" id="start" name="trip-start" value="2023-08-22" min="2020-01-01" max="2024-12-31"/>
+                          <input type="time" id="appt" name="appt" min="09:00" max="18:00" required />
+                      </label>
+                  </div>
+                  <div class="pago">
+                      <label>Monto a pagar:</label>
+                      <h2 id="Monto"></h2>
+                      <button id="Detalles">Detalles</button>
+                  </div>
+                  
+                    <div class="flex">
+                        <label>
+                            <input required="" placeholder="" type="text" class="input" id="ingresoID">
+                            <span>ID del Ingreso</span>
+                        </label>
+                    </div>  
+                    
+                    <button class="fancy" id="registrarButton" type="button">
+                      <span class="top-key"></span>
+                      <span class="text">Proceder al pago</span>
+                      <span class="bottom-key-1"></span>
+                      <span class="bottom-key-2"></span>
+                    </button>
+                </form>
+                </div>
             </div>
-            <div class="box">
-                <button class="edit-button disabled" disabled>
-                    <svg class="edit-svgIcon" viewBox="0 0 512 512">
-                        <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path>
-                    </svg>
-                </button>
-            </div>
-            <div class="box">
-                <button class="delete-button disabled" disabled>
-                    <svg class="delete-svgIcon" viewBox="0 0 448 512">
-                        <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
-                    </svg>
-                </button>
-            </div>
-            <div class="box">
-                <button class="extra" id="extra">
-                    <span>Dar de alta</span>
-                </button>
-            </div>
-        </div>
-        
-          </div>
-          
       </section>
 </body>
 </html>

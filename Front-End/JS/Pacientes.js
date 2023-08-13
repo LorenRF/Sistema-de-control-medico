@@ -6,8 +6,8 @@ $(document).ready(function () {
   // Create search inputs in footer
   $("#example tfoot th").each(function () {
       var title = $(this).text();
-      if (title === "estatus") {
-        $(this).html('<select><option value="Activo">Activo</option><option value="Inactivo">Inactivo</option><option value="">All</option></select>');
+      if (title === "Asegurado") {
+        $(this).html('<select><option value="">All</option><option value="true">true</option><option value="false">false</option></select>');
       } else {
         $(this).html('<input type="text" placeholder="Search ' + title + '" />');
       }
@@ -23,24 +23,17 @@ $(document).ready(function () {
   });
 
   // Fetch data from the API and populate the DataTable
-    fetch('https://localhost:7286/obtener-ingreso')
+    fetch('https://localhost:7286/api/Paciente/obtener-pacientes')
 .then(response => response.json())
 .then(apiResponse => {
-  apiResponse.forEach(ingreso => {
-    if (ingreso.estatus === "Activo") {
-      const fechaIngreso = new Date(ingreso.ingresado);
-      const fechaFormato = `${fechaIngreso.getFullYear()}/${(fechaIngreso.getMonth() + 1).toString().padStart(2, '0')}/${fechaIngreso.getDate().toString().padStart(2, '0')}`;
-      const horaFormato = `${fechaIngreso.getHours().toString().padStart(2, '0')}:${fechaIngreso.getMinutes().toString().padStart(2, '0')}`;
+  apiResponse.forEach(paciente => {
+    if (paciente.estatus === "Activo") {
+ table.row.add([
+        paciente.iD_Paciente,
+        paciente.cedula,
+        paciente.paciente,
+        paciente.asegurado,
 
-      table.row.add([
-        ingreso.iD_Ingreso,
-        fechaFormato,
-        horaFormato,
-        ingreso.numero,
-        ingreso.iD_Habitacion,
-        ingreso.tipo,
-        ingreso.iD_Paciente,
-        ingreso.paciente
       ]).draw();
     }
   });
@@ -105,19 +98,15 @@ if (selectedRows.length == 0) {
   alert('Selecciona solo una fila para editar.');
 } else {
   // Obtén los valores de las celdas de la fila seleccionada
-  var ingresoID = selectedRows.find('td:eq(0)').text();
-  var fechaIngreso = selectedRows.find('td:eq(1)').text();
-  var horaIngreso = selectedRows.find('td:eq(2)').text();
-  var idmedico = selectedRows.find('td:eq(4)').text();
-  var idpaciente = selectedRows.find('td:eq(6)').text();
+  var pacienteID = selectedRows.find('td:eq(0)').text();
+  var fechaPaciente = selectedRows.find('td:eq(1)').text();
+  var horaPaciente = selectedRows.find('td:eq(2)').text();
+  var idmedico = selectedRows.find('td:eq(3)').text();
 
-  
-    // Formatea la fecha en el formato "yyyy-MM-dd"
-    var formattedDate = new Date(fechaIngreso).toISOString().split('T')[0];
 
 
   // Crea la URL con los parámetros
-  const editUrl = `ActualizarIngreso.html?ingresoID=${ingresoID}&fechaIngreso=${formattedDate}&horaIngreso=${horaIngreso}&idmedico=${idmedico}&idpaciente=${idpaciente}`;
+  const editUrl = `ActualizarPaciente.html?pacienteID=${pacienteID}&fechaPaciente=${formattedDate}&horaPaciente=${horaPaciente}&idmedico=${idmedico}&idpaciente=${idpaciente}`;
 
   // Redirige a la página del formulario de edición
   window.location.href = editUrl;
@@ -134,9 +123,9 @@ if (selectedRows.length == 0) {
     alert('Selecciona solo un internamiento.');
   } else {
     // Obtén los valores de las celdas de la fila seleccionada
-    var ingresoID = selectedRows.find('td:eq(0)').text();
+    var pacienteID = selectedRows.find('td:eq(0)').text();
    // Crea la URL con los parámetros
-    const editUrl = `RegistrarAlta.html?ingresoID=${ingresoID}`;
+    const editUrl = `ActualizarPaciente.html?pacienteID=${pacienteID}`;
   
     // Redirige a la página del formulario de edición
     window.location.href = editUrl;
@@ -157,7 +146,7 @@ if (selectedRows.length == 0) {
 
       // Realizar solicitudes HTTP DELETE por cada ID
       selectedIds.forEach(function (id) {
-          var apiUrl = `https://localhost:7286/eliminar-ingreso?ID_Ingreso=${id}`;
+          var apiUrl = `https://localhost:7286/eliminar-paciente?ID_Paciente=${id}`;
 
           fetch(apiUrl, {
               method: 'DELETE'
@@ -167,11 +156,11 @@ if (selectedRows.length == 0) {
                   // Eliminar fila de la tabla
                   table.row(selectedRows.filter(':contains(' + id + ')')).remove().draw(false);
               } else {
-                  alert('Error al eliminar la ingreso con ID ' + id);
+                  alert('Error al eliminar la paciente con ID ' + id);
               }
           })
           .catch(error => {
-              console.error('Error en la solicitud para eliminar la ingreso con ID ' + id + ':', error);
+              console.error('Error en la solicitud para eliminar la paciente con ID ' + id + ':', error);
           });
       });
   }
@@ -182,5 +171,5 @@ if (selectedRows.length == 0) {
 const btnAdd = document.getElementById('btnAdd');
 
 btnAdd.addEventListener('click', function() {
-  window.location.href = '../HTML/RegistrarIngreso.html';
+  window.location.href = '../HTML/RegistrarPaciente.html';
 });
