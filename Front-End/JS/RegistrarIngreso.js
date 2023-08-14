@@ -1,5 +1,9 @@
+const urlParams = new URLSearchParams(window.location.search);
+const pacienteID = urlParams.get('pacienteID');
+
 $(document).ready(function() {
     $("#datepicker").datepicker();
+    $("#pacienteId").val(pacienteID);
   });
 
 $("#agendarButton").on("click", function() {

@@ -23,7 +23,7 @@ $(document).ready(function () {
   });
 
   // Fetch data from the API and populate the DataTable
-    fetch('https://localhost:7286/api/Paciente/obtener-pacientes')
+    fetch('https://localhost:7286/obtener-pacientes')
 .then(response => response.json())
 .then(apiResponse => {
   apiResponse.forEach(paciente => {
@@ -99,22 +99,33 @@ if (selectedRows.length == 0) {
 } else {
   // Obtén los valores de las celdas de la fila seleccionada
   var pacienteID = selectedRows.find('td:eq(0)').text();
-  var fechaPaciente = selectedRows.find('td:eq(1)').text();
-  var horaPaciente = selectedRows.find('td:eq(2)').text();
-  var idmedico = selectedRows.find('td:eq(3)').text();
+  var nombreApellido = selectedRows.find('td:eq(2)').text();
+  var nombrePaciente = "";
+  var apellidoPaciente = "";
+  
+  // Verificar si hay un espacio en el nombreApellido para dividirlo en nombre y apellido
+  if (nombreApellido.includes(" ")) {
+      var partes = nombreApellido.split(" ");
+      nombrePaciente = partes[0];
+      apellidoPaciente = partes.slice(1).join(" "); // Si el apellido contiene espacios, unirlo de nuevo
+  } else {
+      nombreMedico = nombreApellido;
+  } 
+  var cedula = selectedRows.find('td:eq(1)').text();
+  var asegurado = selectedRows.find('td:eq(3)').text();
 
 
 
   // Crea la URL con los parámetros
-  const editUrl = `ActualizarPaciente.html?pacienteID=${pacienteID}&fechaPaciente=${formattedDate}&horaPaciente=${horaPaciente}&idmedico=${idmedico}&idpaciente=${idpaciente}`;
+  const editUrl = `ActualizarPaciente.html?pacienteID=${pacienteID}&nombrePaciente=${nombrePaciente}&apellidoPaciente=${apellidoPaciente}&cedula=${cedula}&asegurado=${asegurado}`;
 
   // Redirige a la página del formulario de edición
   window.location.href = editUrl;
 }
 });
 
- // Manejar clic en el botón de dae de alta
- $('.extra').click(function () {
+ // Manejar clic en el botón de dae de ingreso
+ $('#ingreso').click(function () {
   var selectedRows = $("#example tbody tr.selected");
   
   if (selectedRows.length == 0) {
@@ -125,7 +136,26 @@ if (selectedRows.length == 0) {
     // Obtén los valores de las celdas de la fila seleccionada
     var pacienteID = selectedRows.find('td:eq(0)').text();
    // Crea la URL con los parámetros
-    const editUrl = `ActualizarPaciente.html?pacienteID=${pacienteID}`;
+    const editUrl = `RegistrarIngreso.html?pacienteID=${pacienteID}`;
+  
+    // Redirige a la página del formulario de edición
+    window.location.href = editUrl;
+  }
+  });
+  
+   // Manejar clic en el botón de agendar de cita
+ $('#cita').click(function () {
+  var selectedRows = $("#example tbody tr.selected");
+  
+  if (selectedRows.length == 0) {
+    alert('Debe seleccionar a que intermamiento le dara la alta');
+  } else if (selectedRows.length > 1) {
+    alert('Selecciona solo un internamiento.');
+  } else {
+    // Obtén los valores de las celdas de la fila seleccionada
+    var pacienteID = selectedRows.find('td:eq(0)').text();
+   // Crea la URL con los parámetros
+    const editUrl = `AgregarCita.html?pacienteID=${pacienteID}`;
   
     // Redirige a la página del formulario de edición
     window.location.href = editUrl;

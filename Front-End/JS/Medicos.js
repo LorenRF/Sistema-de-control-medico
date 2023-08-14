@@ -26,14 +26,14 @@ $(document).ready(function () {
     fetch('https://localhost:7286/obtener-medicos')
 .then(response => response.json())
 .then(apiResponse => {
-  apiResponse.forEach(ingreso => {
-    if (ingreso.estatus === "Activo") {
+  apiResponse.forEach(medico => {
+    if (medico.estatus === "Activo") {
 
       table.row.add([
-        ingreso.iD_Medico,
-        ingreso.medico,
-        ingreso.especialidad,
-        ingreso.exequatur
+        medico.iD_Medico,
+        medico.medico,
+        medico.especialidad,
+        medico.exequatur
       ]).draw();
     }
   });
@@ -98,32 +98,44 @@ if (selectedRows.length == 0) {
   alert('Selecciona solo una fila para editar.');
 } else {
   // Obtén los valores de las celdas de la fila seleccionada
-  var ingresoID = selectedRows.find('td:eq(0)').text();
-  var fechaIngreso = selectedRows.find('td:eq(1)').text();
-  var horaIngreso = selectedRows.find('td:eq(2)').text();
-  var idmedico = selectedRows.find('td:eq(3)').text();
+  var medicoID = selectedRows.find('td:eq(0)').text();
+  var nombreApellido = selectedRows.find('td:eq(1)').text();
+  var nombreMedico = "";
+  var apellidoMedico = "";
+  
+  // Verificar si hay un espacio en el nombreApellido para dividirlo en nombre y apellido
+  if (nombreApellido.includes(" ")) {
+      var partes = nombreApellido.split(" ");
+      nombreMedico = partes[0];
+      apellidoMedico = partes.slice(1).join(" "); // Si el apellido contiene espacios, unirlo de nuevo
+  } else {
+      nombreMedico = nombreApellido;
+  }
+  var exmedico = selectedRows.find('td:eq(2)').text();
+  var especial = selectedRows.find('td:eq(3)').text();
+
 
   // Crea la URL con los parámetros
-  const editUrl = `ActualizarMedico.html?ingresoID=${ingresoID}&fechaIngreso=${formattedDate}&horaIngreso=${horaIngreso}&idmedico=${idmedico}&idpaciente=${idpaciente}`;
+  const editUrl = `ActualizarMedico.html?medicoID=${medicoID}&nombreMedico=${nombreMedico}&apellidoMedico=${apellidoMedico}&exmedico=${exmedico}&especial=${especial}`;
 
   // Redirige a la página del formulario de edición
   window.location.href = editUrl;
 }
 });
 
- // Manejar clic en el botón de dae de alta
+ // Manejar clic en el botón de agendar cita
  $('.extra').click(function () {
   var selectedRows = $("#example tbody tr.selected");
   
   if (selectedRows.length == 0) {
-    alert('Debe seleccionar a que intermamiento le dara la alta');
+    alert('Debe seleccionar un medico');
   } else if (selectedRows.length > 1) {
     alert('Selecciona solo un internamiento.');
   } else {
     // Obtén los valores de las celdas de la fila seleccionada
-    var ingresoID = selectedRows.find('td:eq(0)').text();
+    var medicoID = selectedRows.find('td:eq(0)').text();
    // Crea la URL con los parámetros
-    const editUrl = `ActualizarIngreso.html?ingresoID=${ingresoID}`;
+    const editUrl = `AgregarCita.html?medicoID=${medicoID}`;
   
     // Redirige a la página del formulario de edición
     window.location.href = editUrl;
@@ -144,7 +156,7 @@ if (selectedRows.length == 0) {
 
       // Realizar solicitudes HTTP DELETE por cada ID
       selectedIds.forEach(function (id) {
-          var apiUrl = `https://localhost:7286/eliminar-ingreso?ID_Ingreso=${id}`;
+          var apiUrl = `https://localhost:7286/eliminar-medico?ID_Medico=${id}`;
 
           fetch(apiUrl, {
               method: 'DELETE'
@@ -154,11 +166,11 @@ if (selectedRows.length == 0) {
                   // Eliminar fila de la tabla
                   table.row(selectedRows.filter(':contains(' + id + ')')).remove().draw(false);
               } else {
-                  alert('Error al eliminar la ingreso con ID ' + id);
+                  alert('Error al eliminar la medico con ID ' + id);
               }
           })
           .catch(error => {
-              console.error('Error en la solicitud para eliminar la ingreso con ID ' + id + ':', error);
+              console.error('Error en la solicitud para eliminar la medico con ID ' + id + ':', error);
           });
       });
   }
@@ -169,5 +181,5 @@ if (selectedRows.length == 0) {
 const btnAdd = document.getElementById('btnAdd');
 
 btnAdd.addEventListener('click', function() {
-  window.location.href = '../HTML/RegistrarIngreso.html';
+  window.location.href = '../HTML/RegistrarMedico.html';
 });

@@ -1,13 +1,11 @@
-$(document).ready(function() {
-    $("#datepicker").datepicker();
-  });
 
 $("#agendarButton").on("click", function() {
-      var fechaIngreso = $("#start").val() + "T" + $("#appt").val() + ":00";
-      var pacienteId = $("#pacienteId").val();
-      var habitacionId = $("#medicoId").val();
+      var nombre = $("#nombre").val();
+      var apellido = $("#apellido").val();
+      var ex = $("#ex").val();
+      var especialidad = $("#especialidad").val();
 
-      var apiUrl = "https://localhost:7286/agregar-ingreso?Fecha_de_ingreso=" + encodeURIComponent(fechaIngreso) + "&ID_Habitacion=" + habitacionId + "&ID_Paciente=" + pacienteId;
+      var apiUrl = "https://localhost:7286/agregar-medico?Nombre_Medico=" + nombre + "&Apellido_Medico=" +apellido  + "&Exequatur=" + ex + "&Especialidad=" + especialidad;
       
       $.ajax({
         type: "POST",
@@ -16,7 +14,7 @@ $("#agendarButton").on("click", function() {
           alert("Cita agendada correctamente");
         },
         error: function(error) {
-          alert("Error al agendar la cita: " + error.statusText);
+          alert("Error al agendar la medico: " + error.statusText);
         }
       });
     });  

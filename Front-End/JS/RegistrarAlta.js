@@ -4,6 +4,7 @@ var fechaingresado;
 const urlParams = new URLSearchParams(window.location.search);
 const ingresoID = urlParams.get('ingresoID');
 
+
 $('#ingresoID').val(ingresoID);
 
 $("#registrarButton").on("click", function() {
