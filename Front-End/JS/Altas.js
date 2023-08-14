@@ -23,24 +23,29 @@ $(document).ready(function () {
   });
 
   // Fetch data from the API and populate the DataTable
-    fetch('https://localhost:7286/obtener-ingreso')
+    fetch('https://localhost:7286/obtener-altas')
 .then(response => response.json())
 .then(apiResponse => {
-  apiResponse.forEach(ingreso => {
-    if (ingreso.estatus === "Activo") {
-      const fechaIngreso = new Date(ingreso.ingresado);
+  apiResponse.forEach(alta => {
+    if (alta.estatus === "Activo") {
+      const fechaIngreso = new Date(alta.ingresado);
       const fechaFormato = `${fechaIngreso.getFullYear()}/${(fechaIngreso.getMonth() + 1).toString().padStart(2, '0')}/${fechaIngreso.getDate().toString().padStart(2, '0')}`;
       const horaFormato = `${fechaIngreso.getHours().toString().padStart(2, '0')}:${fechaIngreso.getMinutes().toString().padStart(2, '0')}`;
+      const fechahAlta = new Date(alta.ingresado);
+      const fechaAlta = `${fechahAlta.getFullYear()}/${(fechahAlta.getMonth() + 1).toString().padStart(2, '0')}/${fechahAlta.getDate().toString().padStart(2, '0')}`;
+      const horaAlta = `${fechahAlta.getHours().toString().padStart(2, '0')}:${fechahAlta.getMinutes().toString().padStart(2, '0')}`;
 
       table.row.add([
-        ingreso.iD_Ingreso,
+        alta.iD_Alta,
         fechaFormato,
         horaFormato,
-        ingreso.numero,
-        ingreso.iD_Habitacion,
-        ingreso.tipo,
-        ingreso.iD_Paciente,
-        ingreso.paciente
+        fechaAlta,
+        horaAlta,
+        alta.paciente,
+        alta.iD_Paciente,
+        alta.habitacion,
+        alta.iD_Habitacion,
+        alta.pago
       ]).draw();
     }
   });
@@ -105,43 +110,23 @@ if (selectedRows.length == 0) {
   alert('Selecciona solo una fila para editar.');
 } else {
   // Obtén los valores de las celdas de la fila seleccionada
-  var ingresoID = selectedRows.find('td:eq(0)').text();
-  var fechaIngreso = selectedRows.find('td:eq(1)').text();
-  var horaIngreso = selectedRows.find('td:eq(2)').text();
-  var idmedico = selectedRows.find('td:eq(4)').text();
-  var idpaciente = selectedRows.find('td:eq(6)').text();
+  var altaID = selectedRows.find('td:eq(0)').text();
+  var fechaAlta = selectedRows.find('td:eq(1)').text();
+  var horaAlta = selectedRows.find('td:eq(2)').text();
+  var pago = selectedRows.find('td:eq(9)').text();
 
   
     // Formatea la fecha en el formato "yyyy-MM-dd"
-    var formattedDate = new Date(fechaIngreso).toISOString().split('T')[0];
+    var formattedDate = new Date(fechaAlta).toISOString().split('T')[0];
 
 
   // Crea la URL con los parámetros
-  const editUrl = `ActualizarIngreso.html?ingresoID=${ingresoID}&fechaIngreso=${formattedDate}&horaIngreso=${horaIngreso}&idmedico=${idmedico}&idpaciente=${idpaciente}`;
+  const editUrl = `ActualizarAlta.html?altaID=${altaID}&fechaAlta=${formattedDate}&horaAlta=${horaAlta}&pago=${pago}`;
 
   // Redirige a la página del formulario de edición
   window.location.href = editUrl;
 }
 });
-
- // Manejar clic en el botón de dae de alta
- $('.extra').click(function () {
-  var selectedRows = $("#example tbody tr.selected");
-  
-  if (selectedRows.length == 0) {
-    alert('Debe seleccionar a que intermamiento le dara la alta');
-  } else if (selectedRows.length > 1) {
-    alert('Selecciona solo un internamiento.');
-  } else {
-    // Obtén los valores de las celdas de la fila seleccionada
-    var ingresoID = selectedRows.find('td:eq(0)').text();
-   // Crea la URL con los parámetros
-    const editUrl = `ActualizarIngreso.html?ingresoID=${ingresoID}`;
-  
-    // Redirige a la página del formulario de edición
-    window.location.href = editUrl;
-  }
-  });
   
 
  // Manejar clic en el botón de eliminar
@@ -157,7 +142,7 @@ if (selectedRows.length == 0) {
 
       // Realizar solicitudes HTTP DELETE por cada ID
       selectedIds.forEach(function (id) {
-          var apiUrl = `https://localhost:7286/eliminar-ingreso?ID_Ingreso=${id}`;
+          var apiUrl = `https://localhost:7286/eliminar-alta?ID_Alta=${id}`;
 
           fetch(apiUrl, {
               method: 'DELETE'
@@ -167,11 +152,11 @@ if (selectedRows.length == 0) {
                   // Eliminar fila de la tabla
                   table.row(selectedRows.filter(':contains(' + id + ')')).remove().draw(false);
               } else {
-                  alert('Error al eliminar la ingreso con ID ' + id);
+                  alert('Error al eliminar la alta con ID ' + id);
               }
           })
           .catch(error => {
-              console.error('Error en la solicitud para eliminar la ingreso con ID ' + id + ':', error);
+              console.error('Error en la solicitud para eliminar la alta con ID ' + id + ':', error);
           });
       });
   }
@@ -182,5 +167,5 @@ if (selectedRows.length == 0) {
 const btnAdd = document.getElementById('btnAdd');
 
 btnAdd.addEventListener('click', function() {
-  window.location.href = '../HTML/RegistrarIngreso.html';
+  window.location.href = '../HTML/Ingresos.html';
 });

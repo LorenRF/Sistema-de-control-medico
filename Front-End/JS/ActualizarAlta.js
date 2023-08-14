@@ -1,9 +1,9 @@
 // Obtén los parámetros de la URL
 const urlParams = new URLSearchParams(window.location.search);
-const ingresoID = urlParams.get('ingresoID');
-const fechaIngreso = urlParams.get('fechaIngreso');
-const horaIngreso = urlParams.get('horaIngreso');
-const idmedico = urlParams.get('idmedico');
+const altaid = urlParams.get('altaID');
+const fechaAlta = urlParams.get('fechaAlta');
+const horaAlta = urlParams.get('horaAlta');
+const pago = urlParams.get('pago');
 const idpaciente = urlParams.get('idpaciente');
 
 $(document).ready(function() {
@@ -11,34 +11,32 @@ $(document).ready(function() {
 });
 
 
-$('#IngresoID').val(ingresoID);
-$('#start').val(fechaIngreso);
-$('#appt').val(horaIngreso);
-$('#pacienteId').val(idpaciente);
-$('#medicoId').val(idmedico);
+$('#AltaID').val(altaid);
+$('#start').val(fechaAlta);
+$('#appt').val(horaAlta);
+$('#pago').val(pago);
 
 
 $("#Actualizar").on("click", function() {
-  var IDingreso = $("#IngresoID").val();
-  var fechaIngreso = $("#start").val() + "T" + $("#appt").val() + ":00";
-  var pacienteId = $("#pacienteId").val();
-  var medicoId = $("#medicoId").val();
+  var IDalta = $("#AltaID").val();
+  var fechaAlta = $("#start").val() + "T" + $("#appt").val() + ":00";
+  var pago = $("#pago").val();
 
-  var apiUrl = `https://localhost:7286/editar-ingreso?ID_Ingreso=${IDingreso}&Fecha_de_ingreso=${encodeURIComponent(fechaIngreso)}&ID_Habitacion=${medicoId}&ID_Paciente=${pacienteId}`;
+  var apiUrl = `https://localhost:7286/editar-alta?ID_Alta=${IDalta}&Fecha_de_alta=${encodeURIComponent(fechaAlta)}&pago=${pago}`;
   
   $.ajax({
-    type: "PUT",  // Cambiado a PUT para realizar una actualización
+    type: "PUT",  
     url: apiUrl,
     success: function(response) {
       if (response && Object.keys(response).length > 0) {
-        alert("Ingreso actualizado correctamente");
-        window.location.href = "Ingresos.html";
+        alert("Alta actualizada correctamente");
+        window.location.href = "Altas.html";
       } else {
-        alert("Error al actualizar la ingreso: Respuesta vacía o no válida");
+        alert("Error al actualizar la alta: Respuesta vacía o no válida");
       }
     },
     error: function(error) {
-      alert("Error al actualizar la ingreso: " + error.statusText);
+      alert("Error al actualizar la alta: " + error.statusText);
     }
   });
 });
