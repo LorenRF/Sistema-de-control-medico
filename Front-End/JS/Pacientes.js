@@ -8,7 +8,7 @@ $(document).ready(function () {
   $("#example tfoot th").each(function () {
       var title = $(this).text();
       if (title === "Asegurado") {
-        $(this).html('<select><option value="">All</option><option value="true">true</option><option value="false">false</option></select>');
+        $(this).html('<select><option value="">Todos</option><option value="Si">Si</option><option value="No">No</option></select>');
       } else {
         $(this).html('<input type="text" placeholder="Search ' + title + '" />');
       }
@@ -29,11 +29,12 @@ $(document).ready(function () {
     .then(apiResponse => {
       apiResponse.forEach(paciente => {
         if (paciente.estatus === "Activo") {
+          const asegurado = paciente.asegurado ? 'Si' : 'No';
           table.row.add([
             paciente.iD_Paciente,
             paciente.cedula,
             paciente.paciente,
-            paciente.asegurado,
+            asegurado,
           ]).draw();
         }
       });
@@ -104,6 +105,20 @@ function calcularResultado(selectedFunction, columnIndex) {
     return 'No hay datos numéricos en esta columna';
   }
 
+  if ([0].includes(columnIndex)){
+    switch (selectedFunction) {
+
+        case 'count':
+          return rowsDisplayed; // Cantidad de filas visibles
+        case 'max':
+        return calcularMaximo(numericData);
+      case 'min':
+        return calcularMinimo(numericData);
+      default:
+        return 'No hay datos compatibles en esta columna';
+    }
+  }
+
   switch (selectedFunction) {
     case 'sum':
       return calcularSuma(numericData);
@@ -142,8 +157,8 @@ function calcularSuma(numericData) {
 function obtenerNumericData(columnIndex) {
   const data = table.column(columnIndex, { search: 'applied' }).data();
 
-  const numericData = data.map(value => {
-    if (!isNaN(value) && !value.includes("/") && !value.includes(":")) {
+  const numericData = data.map((value) => {
+    if (!isNaN(value) && String(value).indexOf("/") === -1 && String(value).indexOf(":") === -1) {
       return parseFloat(value);
     }
     return NaN;

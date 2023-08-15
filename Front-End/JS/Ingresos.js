@@ -109,8 +109,22 @@ function calcularResultado(selectedFunction, columnIndex) {
   const rowsDisplayed = info.end - info.start; // Número de filas visibles
 
 
-  if (numericData.length === 0 && selectedFunction != 'count') {
-    return 'No hay datos numéricos en esta columna';
+  if (numericData.length === 0 && selectedFunction != 'count' ) {
+    return 'No hay datos compatibles en esta columna';
+  }
+
+  if ([0, 3, 4, 6].includes(columnIndex)){
+    switch (selectedFunction) {
+
+        case 'count':
+          return rowsDisplayed; // Cantidad de filas visibles
+        case 'max':
+        return calcularMaximo(numericData);
+      case 'min':
+        return calcularMinimo(numericData);
+      default:
+        return 'No hay datos compatibles en esta columna';
+    }
   }
 
   switch (selectedFunction) {
@@ -151,8 +165,8 @@ function calcularSuma(numericData) {
 function obtenerNumericData(columnIndex) {
   const data = table.column(columnIndex, { search: 'applied' }).data();
 
-  const numericData = data.map(value => {
-    if (!isNaN(value) && !value.includes("/") && !value.includes(":")) {
+  const numericData = data.map((value, index) => {
+    if (!isNaN(value) && String(value).indexOf("/") === -1 && String(value).indexOf(":") === -1) {
       return parseFloat(value);
     }
     return NaN;
@@ -160,6 +174,7 @@ function obtenerNumericData(columnIndex) {
 
   return numericData;
 }
+
 
 
 

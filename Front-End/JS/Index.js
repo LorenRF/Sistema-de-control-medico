@@ -14,7 +14,7 @@ sidebarBtn.addEventListener("click", ()=>{
 });
 
 // Lista de elementos de ejemplo
-const búsqueda = ["Ver Citas", "Agendar una cita", "Ver Altas", "Registrar alta", "Ver ingresos", "Registrar ingreso", "Ver pacientes", "Registrar paciente", "Ver Medicos", "Registrar medico"];
+const búsqueda = ["Ver Citas", "Agendar una cita", "Ver Altas", "Registrar alta", "Ver ingresos", "Registrar ingreso", "Ver pacientes", "Registrar paciente", "Ver Medicos", "Registrar medico", "Ver habitaciones"];
 
 const searchInput = document.getElementById("searchInput");
 const searchResults = document.getElementById("searchResults");
@@ -81,6 +81,11 @@ searchInput.addEventListener("input", function() {
       else if (listItem.textContent === "Registrar medico")
       {
         window.location.href = "RegistrarMedico.html";
+
+      }
+      else if (listItem.textContent === "Ver habitaciones")
+      {
+        window.location.href = "Habitaciones.html";
 
       }
 
