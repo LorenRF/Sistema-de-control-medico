@@ -5,8 +5,7 @@ using Sistema_de_control_medico.Models;
 
 namespace Sistema_de_control_medico.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+   
     public class PacienteController : ControllerBase
     {
         IPaciente paciente { set; get; }

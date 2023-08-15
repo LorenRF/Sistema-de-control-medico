@@ -5,7 +5,7 @@
         public int? ID_Medico { get; set; }
         public string? Nombre_Medico { get; set; }
         public string? Apellido_Medico { get; set; }
-        public int? Exequatur { get; set; }
+        public string? Exequatur { get; set; }
         public string? Especialidad { get; set; }
 
     }

@@ -8,6 +8,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Fabricas\**" />
+    <Compile Remove="Fachadas\**" />
+    <Compile Remove="Otros\**" />
+    <Content Remove="Fabricas\**" />
+    <Content Remove="Fachadas\**" />
+    <Content Remove="Otros\**" />
+    <EmbeddedResource Remove="Fabricas\**" />
+    <EmbeddedResource Remove="Fachadas\**" />
+    <EmbeddedResource Remove="Otros\**" />
+    <None Remove="Fabricas\**" />
+    <None Remove="Fachadas\**" />
+    <None Remove="Otros\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Interfaces\IModel.cs" />
+    <Compile Remove="Models\DBControl_medicoContext.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="6.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.20">
       <PrivateAssets>all</PrivateAssets>
