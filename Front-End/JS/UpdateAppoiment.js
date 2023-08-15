@@ -32,7 +32,7 @@ $("#Actualizar").on("click", function() {
     success: function(response) {
       if (response && Object.keys(response).length > 0) {
         alert("Cita actualizada correctamente");
-        window.location.href = "Cistas.html";
+        window.location.href = "Citas.html";
       } else {
         alert("Error al actualizar la cita: Respuesta vacía o no válida");
       }

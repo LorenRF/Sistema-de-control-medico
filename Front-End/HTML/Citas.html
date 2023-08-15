@@ -11,7 +11,7 @@
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="../CSS/Index.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../CSS/Citas.css">
+    <link rel="stylesheet" href="../CSS/Vistas.css">
     <title>Sistema de Control medico</title>
 </head>
 <body>
@@ -32,16 +32,16 @@
       </li>
       <li>
         <div class="iocn-link">
-          <a href="Cistas.html">
+          <a href="Citas.html">
             <i class='bx bx-book-heart' ></i>
             <span class="link_name">Citas medicas</span>
           </a>
           <i class='bx bxs-chevron-down arrow' ></i>
         </div>
         <ul class="sub-menu">
-          <li><a class="link_name" href="Cistas.html">Citas medicas</a></li>
+          <li><a class="link_name" href="Citas.html">Citas medicas</a></li>
           <li><a href="AgregarCita.html">Reservar cita</a></li>
-          <li><a href="Cistas.html">Ver citas</a></li>
+          <li><a href="Citas.html">Ver citas</a></li>
         </ul>
       </li>
       <li>
@@ -143,6 +143,17 @@
         <div class="Content">
           <div id="Vista-container">
             <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+              <div class="filtro">
+                <select id="funcion">
+                  <option value="">Seleccione una función</option>
+                  <option value="sum">Suma</option>
+                  <option value="count">Conteo</option>
+                  <option value="average">Promedio</option>
+                  <option value="max">Monto mayor</option>
+                  <option value="min">Monto menor</option>
+                </select>
+                 <p id="fresultado"></p>
+              </div>
               <thead>
                 <tr>
                   <th>ID Cita</th>

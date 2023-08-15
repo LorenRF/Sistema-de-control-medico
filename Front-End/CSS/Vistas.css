@@ -320,3 +320,16 @@ button.extra {
   transform: translate3d(100%, 0, 0);
  }
  
+ .filtro{
+  text-align: center; /* Centrar horizontalmente */
+  margin-top: 2%; /* Distancia desde la parte superior */
+  margin-bottom: 2%;
+
+ }
+
+ .filtro select {
+  top: 22%; /* Coloca el div en la parte superior */
+  bottom: 22%; /* Coloca el div en la parte inferior */
+  left: 22%; /* Coloca el div en la parte izquierda */
+  right: 22%; /* Coloca el div en la parte derecha */
+ }
