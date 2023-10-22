@@ -1,11 +1,21 @@
 # Título del Proyecto
 
-Sistema de contrl medico
+Sistema de control medico
 ## Comenzando 🚀
 
-Descarga el archivo y ejecuta la rama back-end en Visual Studio, despues; abre la carpeta front-end con visual studio code. debes tener instalados los paquetes de entity framework con c# en visual studio.
-tambien debes tener una base de datos en sql que contenga los nombres exactos que se utilizan en el modelado.que esta en visual estudio code
+"Para poner en marcha este proyecto, sigue estos pasos para garantizar que todo funcione correctamente:
 
+* Descarga el archivo y abre la rama 'back-end' en Visual Studio.
+
+* Asegúrate de tener instalados los paquetes de Entity Framework para C# en Visual Studio.
+
+* Además, necesitas contar con una base de datos SQL que contenga los nombres exactos que se utilizan en el modelo que se encuentra en Visual Studio Code.
+
+* Ejecuta la aplicación 'back-end' en Visual Studio para asegurarte de que todos los servicios estén en funcionamiento.
+
+* Luego, abre la carpeta 'front-end' con Visual Studio Code.
+
+* Asegúrate de que todos los nombres utilizados en el modelo coincidan con los de la base de datos que has preparado.
 Mira **Deployment** para conocer como desplegar el proyecto.
 
 
@@ -23,11 +33,9 @@ Mira **Deployment** para conocer como desplegar el proyecto.
 
 ## Ejecutando las pruebas ⚙️
 
-Mientras corres la API abre el index.htm, donde podrar realizar cualquieras de las funciones del crud. puedes agendar citas, eliminarlas y editarlas, lo mismo con las agendas y tambien conj los pacientes y medicos.
+Mientras corres la API abre el index.htm. podras realizar cualquieras de las funciones del crud. puedes agendar citas, eliminarlas y editarlas, lo mismo con las agendas y tambien conj los pacientes y medicos.
 
 ## Construido con 🛠️
-
-_Menciona las herramientas que utilizaste para crear tu proyecto_
 
 * [ASP.NET Core web API]([https://www.dropwizard.io/1.0.2/docs/](https://learn.microsoft.com/es-es/aspnet/core/?view=aspnetcore-7.0)) - El framework web usado
 * [C#]([https://maven.apache.org/](https://learn.microsoft.com/es-es/dotnet/csharp/)) - Lenguaje utilizado
@@ -36,8 +44,6 @@ _Menciona las herramientas que utilizaste para crear tu proyecto_
 ## Autoria ✒️
 
 * **Loren Feliz** - *Creadora* - [LorenFeliz](#LorenRF)
-
-También puedes mirar la lista de todos los [contribuyentes](https://github.com/your/project/contributors) quíenes han participado en este proyecto. 
 
 ## Licencia 📄
 
